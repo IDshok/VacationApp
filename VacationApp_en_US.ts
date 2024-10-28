@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="en_US">
+<context>
+    <name>VacationTable</name>
+    <message>
+        <source>Январь</source>
+        <translation>January</translation>
+    </message>
+    <message>
+        <source>Февраль</source>
+        <translation>February</translation>
+    </message>
+    <message>
+        <source>Март</source>
+        <translation>March</translation>
+    </message>
+    <message>
+        <source>Апрель</source>
+        <translation>April</translation>
+    </message>
+    <message>
+        <source>Май</source>
+        <translation>May</translation>
+    </message>
+    <message>
+        <source>Июнь</source>
+        <translation>June</translation>
+    </message>
+    <message>
+        <source>Июль</source>
+        <translation>July</translation>
+    </message>
+    <message>
+        <source>Август</source>
+        <translation>August</translation>
+    </message>
+    <message>
+        <source>Сентябрь</source>
+        <translation>September</translation>
+    </message>
+    <message>
+        <source>Октябрь</source>
+        <translation>October</translation>
+    </message>
+    <message>
+        <source>Ноябрь</source>
+        <translation>November</translation>
+    </message>
+    <message>
+        <source>Декабрь</source>
+        <translation>December</translation>
+    </message>
+</context>
+</TS>

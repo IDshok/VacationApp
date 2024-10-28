@@ -1,0 +1,17 @@
+# ninja log v6
+139	344	7518293552401051	VacationApp_autogen/timestamp	fc298391b406d660
+33	122	7518293551462617	C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/cmake.verify_globs	ffff5401606b54ed
+346	5350	7518293554583647	CMakeFiles/VacationApp.dir/vacationtable.cpp.obj	40ee60e124c1b1b1
+139	344	7518293552401051	VacationApp_autogen/mocs_compilation.cpp	fc298391b406d660
+224	2478	7517450165987370	build.ninja	207f829a55e846d5
+139	344	7518293552401051	C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/timestamp	fc298391b406d660
+139	344	7518293552401051	C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/mocs_compilation.cpp	fc298391b406d660
+1084	7725	7517782901441049	CMakeFiles/VacationApp.dir/VacationApp_autogen/mocs_compilation.cpp.obj	e9d81613daec94ae
+355	5212	7518293554673657	CMakeFiles/VacationApp.dir/employeeadddialog.cpp.obj	6c1da3e4267c920
+359	5205	7518291804069410	CMakeFiles/VacationApp.dir/main.cpp.obj	1ed08790c4e993e3
+5351	5933	7518293604634022	VacationApp.exe	af46661031f661d1
+534	10416	7517380988878911	CMakeFiles/VacationApp.dir/vacationrectitem.cpp.obj	167c9a880c7026de
+366	5566	7518288241854038	CMakeFiles/VacationApp.dir/vacationscene.cpp.obj	f5ce23e0f6bec00d
+351	5223	7518293554633652	CMakeFiles/VacationApp.dir/vacationeditdialog.cpp.obj	da4d65f99c8ca9e0
+371	6316	7517662316696175	CMakeFiles/VacationApp.dir/horizontalheaderitem.cpp.obj	48c2750bfc646e9c
+36	130	7518295684382463	C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/cmake.verify_globs	ffff5401606b54ed
