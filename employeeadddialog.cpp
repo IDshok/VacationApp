@@ -17,6 +17,15 @@ EmployeeAddDialog::~EmployeeAddDialog()
 {
     delete ui;
 }
+void EmployeeAddDialog::setValue(const int employeeId, const QString& name, const QString& patronymic, const QString& surname, const QString& post, const QString& subunit) {
+    // Устанавливаем значения в lineEdit-ы
+    m_employeeId = employeeId;
+    ui->le_name->setText(name);
+    ui->le_part->setText(patronymic);
+    ui->le_surname->setText(surname);
+    ui->le_post->setText(post);
+    ui->le_subunit->setText(subunit);
+}
 
 int EmployeeAddDialog::employeeId() const
 {
@@ -54,21 +63,39 @@ void EmployeeAddDialog::on_btn_save_clicked()
         }
     }
     QSqlQuery query;
-    QString insertQuery =
-        QString("INSERT INTO employees(name, patronymic, surname, post, subunit) VALUES('%1','%2','%3','%4','%5') RETURNING id;")
-                .arg(ui->le_name->text(),
-                   ui->le_part->text(),
-                   ui->le_surname->text(),
-                   ui->le_post->text(),
-                   ui->le_subunit->text());
+    // QString insertQuery =
+    //     QString("INSERT INTO employees(name, patronymic, surname, post, subunit) VALUES('%1','%2','%3','%4','%5') RETURNING id;")
+    //             .arg(ui->le_name->text(),
+    //                ui->le_part->text(),
+    //                ui->le_surname->text(),
+    //                ui->le_post->text(),
+    //                ui->le_subunit->text());
+    QString insertQuery = QString("INSERT INTO employees(name, patronymic, surname, post, subunit) VALUES(:name, :patronymic, :surname, :post, :subunit) RETURNING id;");
+    QString updateQuery = QString("UPDATE employees SET name=:name, patronymic=:patronymic, surname=:surname, post=:post, subunit=:subunit WHERE id=:id;");
+
+    query.prepare(m_employeeId == 0 ? insertQuery : updateQuery);
+
+    query.bindValue(":name", ui->le_name->text());
+    query.bindValue(":patronymic", ui->le_part->text());
+    query.bindValue(":surname", ui->le_surname->text());
+    query.bindValue(":post", ui->le_post->text());
+    query.bindValue(":subunit", ui->le_subunit->text());
+
+    if (m_employeeId != 0) {
+        query.bindValue(":id", m_employeeId);
+    }
     m_employeeName = ui->le_name->text();
     m_employeePart = ui->le_part->text();
     m_employeeSurname = ui->le_surname->text();
-    if (query.exec(insertQuery))
+    if (query.exec())
     {
-        query.first();
-        m_employeeId = query.value("id").toInt();
-        qDebug() << "Новый сотрудник добавлен с ID:" << m_employeeId;
+        if (m_employeeId == 0) {
+            query.first();
+            m_employeeId = query.value("id").toInt();
+            qDebug() << "Новый сотрудник добавлен с ID:" << m_employeeId;
+        } else {
+            qDebug() << "Сотрудник с ID:" << m_employeeId << "обновлен";
+        }
     }
     else
     {
@@ -76,7 +103,7 @@ void EmployeeAddDialog::on_btn_save_clicked()
         QMessageBox::critical(this, "Ошибка", "Ошибка при добавлении сотрудника: " + query.lastError().text());
         return;
     }
-    m_employeeId = query.value(0).toInt();
+    //m_employeeId = query.value(0).toInt();
     accept();
 }
 

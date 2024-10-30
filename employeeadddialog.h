@@ -20,6 +20,7 @@ public:
     QString employeeSurname() const;
     QString formatName() const;
 
+    void setValue(const int employeeId, const QString &name, const QString &patronymic, const QString &surname, const QString &post, const QString &subunit);
 private slots:
     void on_btn_save_clicked();
 
@@ -27,7 +28,7 @@ private slots:
 
 private:
     Ui::EmployeeAddDialog *ui;
-    int m_employeeId;
+    int m_employeeId = 0;
     QString m_employeeName;
     QString m_employeePart;
     QString m_employeeSurname;

@@ -163,7 +163,7 @@ void VacationTable::drawHeaders()
             return;
         }
         do {
-            QGraphicsTextItem *employeeText = scene->addText(QString("%1. %2").arg(query.value("id").toString(),query.value("fio").toString()));
+            QGraphicsTextItem *employeeText = scene->addText(QString("%1. %2").arg(query.value("id").toString(), query.value("fio").toString()));
             employeeText->setPos(5, y);
             y += cellSize.height();
         } while(query.next());
@@ -216,7 +216,7 @@ void VacationTable::drawVacations()
             vacationRect->setFinishDate(finishDate);
             vacationRect->setToolTip(QString("Начало отпуска: %1 \nОкончание отпуска: %2").arg(vacationRect->startDate().toString("dd.MM.yyyy"), vacationRect->finishDate().toString("dd.MM.yyyy")));
             scene->addItem(vacationRect);
-        }while (query.next());
+        } while (query.next());
     }
     else
     {
@@ -231,7 +231,7 @@ void VacationTable::addNewEmployee()
     if(dialog->exec() == QDialog::Accepted)
     {
         scene->addRow();
-        QGraphicsTextItem *employeeText = scene->addText(dialog->employeeId() +"." + dialog->formatName());
+        QGraphicsTextItem *employeeText = scene->addText(QString::number(dialog->employeeId()) +". " + dialog->formatName());
         employeeText->setPos(5, cellSize.height()*dialog->employeeId());
     }
 }
