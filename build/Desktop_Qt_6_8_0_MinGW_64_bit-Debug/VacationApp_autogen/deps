@@ -18,6 +18,8 @@ VacationApp_autogen/timestamp: \
 	C:/Users/Ace/Documents/VacationApp/vacationscene.h \
 	C:/Users/Ace/Documents/VacationApp/vacationtable.cpp \
 	C:/Users/Ace/Documents/VacationApp/vacationtable.h \
+	C:/Users/Ace/Documents/VacationApp/verticalheaderitem.cpp \
+	C:/Users/Ace/Documents/VacationApp/verticalheaderitem.h \
 	D:/qt/6.8.0/mingw_64/include/QtCore/QDate \
 	D:/qt/6.8.0/mingw_64/include/QtCore/q20functional.h \
 	D:/qt/6.8.0/mingw_64/include/QtCore/q20iterator.h \

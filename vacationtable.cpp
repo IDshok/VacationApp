@@ -1,5 +1,6 @@
 #include "vacationrectitem.h"
 #include "horizontalheaderitem.h"
+#include "verticalheaderitem.h"
 #include "employeeadddialog.h"
 #include "vacationtable.h"
 #include "./ui_vacationtable.h"
@@ -151,8 +152,8 @@ void VacationTable::drawHeaders()
         return;
     }
 
-
-    query.prepare("SELECT id, concat(surname, ' ', substr(name, 1, 1), '. ', substr(patronymic, 1, 1), '.') AS fio FROM employees;");
+    //query.prepare("SELECT id, concat(surname, ' ', substr(name, 1, 1), '. ', substr(patronymic, 1, 1), '.') AS fio FROM employees;");
+    query.prepare("SELECT id, concat(surname, ' ', substr(name, 1, 1), '. ', substr(patronymic, 1, 1), '.') AS fio, name, patronymic, surname, post, subunit FROM employees ORDER BY id ASC;");
     if(query.exec())
     {
         int y = cellSize.height();
@@ -163,8 +164,19 @@ void VacationTable::drawHeaders()
             return;
         }
         do {
-            QGraphicsTextItem *employeeText = scene->addText(QString("%1. %2").arg(query.value("id").toString(), query.value("fio").toString()));
-            employeeText->setPos(5, y);
+            VerticalHeaderItem *employeeItem = new VerticalHeaderItem(0, y, cellSize.width(), cellSize.height());
+            employeeItem->setPen(QPen(Qt::black)); // Устанавливаем цвет границы
+            employeeItem->setBrush(QBrush(Qt::lightGray)); // Устанавливаем цвет фона
+            scene->addItem(employeeItem);
+
+            // Заполняем данные в VerticalHeaderItem
+            employeeItem->setId(query.value("id").toInt());
+            employeeItem->setName(query.value("name").toString());
+            employeeItem->setPart(query.value("patronymic").toString());
+            employeeItem->setSurname(query.value("surname").toString());
+            employeeItem->setSubunit(query.value("subunit").toString());
+            employeeItem->setPost(query.value("post").toString());
+            employeeItem->setText(QString("%1. %2").arg(query.value("id").toString(), query.value("fio").toString()));
             y += cellSize.height();
         } while(query.next());
     }
@@ -231,7 +243,20 @@ void VacationTable::addNewEmployee()
     if(dialog->exec() == QDialog::Accepted)
     {
         scene->addRow();
-        QGraphicsTextItem *employeeText = scene->addText(QString::number(dialog->employeeId()) +". " + dialog->formatName());
-        employeeText->setPos(5, cellSize.height()*dialog->employeeId());
+        VerticalHeaderItem *employeeItem = new VerticalHeaderItem(0, cellSize.height()*dialog->employeeId(), cellSize.width(), cellSize.height());
+        employeeItem->setPen(QPen(Qt::black)); // Устанавливаем цвет границы
+        employeeItem->setBrush(QBrush(Qt::lightGray)); // Устанавливаем цвет фона
+        scene->addItem(employeeItem);
+
+        // Заполняем данные в VerticalHeaderItem
+        employeeItem->setId(dialog->employeeId());
+        employeeItem->setName(dialog->employeeName());
+        employeeItem->setPart(dialog->employeePart());
+        employeeItem->setSurname(dialog->employeeSurname());
+        employeeItem->setSubunit(dialog->employeePost());
+        employeeItem->setPost(dialog->employeeSubunit());
+        employeeItem->setText(QString("%1. %2").arg(QString::number(dialog->employeeId()), dialog->formatName()));
+        // QGraphicsTextItem *employeeText = scene->addText(QString::number(dialog->employeeId()) +". " + dialog->formatName());
+        // employeeText->setPos(5, cellSize.height()*dialog->employeeId());
     }
 }

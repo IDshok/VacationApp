@@ -61,6 +61,7 @@ set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/vacationrectitem.cpp"
   "C:/Users/Ace/Documents/VacationApp/vacationscene.cpp"
   "C:/Users/Ace/Documents/VacationApp/vacationtable.cpp"
+  "C:/Users/Ace/Documents/VacationApp/verticalheaderitem.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -91,6 +92,7 @@ set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/vacationrectitem.h"
   "C:/Users/Ace/Documents/VacationApp/vacationscene.h"
   "C:/Users/Ace/Documents/VacationApp/vacationtable.h"
+  "C:/Users/Ace/Documents/VacationApp/verticalheaderitem.h"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

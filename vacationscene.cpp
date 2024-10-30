@@ -1,6 +1,8 @@
 #include "vacationscene.h"
 #include "vacationrectitem.h"
 #include "horizontalheaderitem.h"
+#include "verticalheaderitem.h"
+#include "employeeadddialog.h"
 #include "vacationeditdialog.h"
 
 #include <QSqlError>
@@ -87,6 +89,29 @@ void VacationScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                     castItem->setFinishDate(newFinisDate);
                     castItem->setToolTip(QString("Начало отпуска: %1 \nОкончание отпуска: %2").arg(castItem->startDate().toString("dd.MM.yyyy"), castItem->finishDate().toString("dd.MM.yyyy")));
                 }
+            }
+        }
+        // Вызываем событие двойного щелчка родительского класса
+        QGraphicsScene::mouseDoubleClickEvent(event);
+    }
+    if (item && item->type() == VerticalHeaderItem::Type)
+    {
+        if (auto castItem = dynamic_cast<VerticalHeaderItem*>(item))
+        {
+            QScopedPointer<EmployeeAddDialog> dialog(new EmployeeAddDialog());
+            dialog->setValue(castItem->employeeId(), castItem->employeeName(), castItem->employeePart(), castItem->employeeSurname(), castItem->post(), castItem->subunit());
+            if(dialog->exec() == QDialog::Accepted)
+            {
+                // Заполняем данные в VerticalHeaderItem
+                castItem->setId(dialog->employeeId());
+                castItem->setName(dialog->employeeName());
+                castItem->setPart(dialog->employeePart());
+                castItem->setSurname(dialog->employeeSurname());
+                castItem->setSubunit(dialog->employeePost());
+                castItem->setPost(dialog->employeeSubunit());
+                castItem->setText(QString("%1. %2").arg(QString::number(dialog->employeeId()), dialog->formatName()));
+                // QGraphicsTextItem *employeeText = scene->addText(QString::number(dialog->employeeId()) +". " + dialog->formatName());
+                // employeeText->setPos(5, cellSize.height()*dialog->employeeId());
             }
         }
         // Вызываем событие двойного щелчка родительского класса

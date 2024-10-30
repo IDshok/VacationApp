@@ -18,6 +18,8 @@ public:
     QString employeeName() const;
     QString employeePart() const;
     QString employeeSurname() const;
+    QString employeePost() const;
+    QString employeeSubunit() const;
     QString formatName() const;
 
     void setValue(const int employeeId, const QString &name, const QString &patronymic, const QString &surname, const QString &post, const QString &subunit);
@@ -32,6 +34,8 @@ private:
     QString m_employeeName;
     QString m_employeePart;
     QString m_employeeSurname;
+    QString m_employeePost;
+    QString m_employeeSubunit;
 };
 
 #endif // EMPLOYEEADDDIALOG_H

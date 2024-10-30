@@ -6,7 +6,6 @@
 #include <QGraphicsTextItem>
 #include <QSqlQuery>
 #include <QPair>
-#include <QVector>
 
 class HorizontalHeaderItem : public QGraphicsRectItem
 {

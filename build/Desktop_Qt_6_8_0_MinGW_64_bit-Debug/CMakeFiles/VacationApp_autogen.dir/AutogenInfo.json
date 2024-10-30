@@ -414,6 +414,12 @@
 			"MU",
 			"EWIEGA46WW/moc_vacationtable.cpp",
 			null
+		],
+		[
+			"C:/Users/Ace/Documents/VacationApp/verticalheaderitem.h",
+			"MU",
+			"EWIEGA46WW/moc_verticalheaderitem.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -511,7 +517,12 @@
 		],
 		[ "C:/Users/Ace/Documents/VacationApp/vacationrectitem.cpp", "MU", null ],
 		[ "C:/Users/Ace/Documents/VacationApp/vacationscene.cpp", "MU", null ],
-		[ "C:/Users/Ace/Documents/VacationApp/vacationtable.cpp", "MU", null ]
+		[ "C:/Users/Ace/Documents/VacationApp/vacationtable.cpp", "MU", null ],
+		[
+			"C:/Users/Ace/Documents/VacationApp/verticalheaderitem.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

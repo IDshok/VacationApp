@@ -42,6 +42,16 @@ QString EmployeeAddDialog::employeeSurname() const
     return m_employeeSurname;
 }
 
+QString EmployeeAddDialog::employeePost() const
+{
+    return m_employeePost;
+}
+
+QString EmployeeAddDialog::employeeSubunit() const
+{
+    return m_employeeSubunit;
+}
+
 QString EmployeeAddDialog::formatName() const
 {
     return QString("%1 %2. %3.").arg(m_employeeSurname, m_employeeName.left(1), m_employeePart.left(1));
@@ -87,6 +97,8 @@ void EmployeeAddDialog::on_btn_save_clicked()
     m_employeeName = ui->le_name->text();
     m_employeePart = ui->le_part->text();
     m_employeeSurname = ui->le_surname->text();
+    m_employeePost = ui->le_post->text();
+    m_employeeSubunit = ui->le_subunit->text();
     if (query.exec())
     {
         if (m_employeeId == 0) {

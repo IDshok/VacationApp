@@ -35,6 +35,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         vacationeditdialog.h vacationeditdialog.cpp vacationeditdialog.ui
         horizontalheaderitem.h horizontalheaderitem.cpp
         employeeadddialog.h employeeadddialog.cpp employeeadddialog.ui
+        verticalheaderitem.h verticalheaderitem.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET VacationApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

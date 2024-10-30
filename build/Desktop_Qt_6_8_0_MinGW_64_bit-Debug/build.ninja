@@ -113,6 +113,14 @@ build CMakeFiles/VacationApp.dir/employeeadddialog.cpp.obj: CXX_COMPILER__Vacati
   OBJECT_DIR = CMakeFiles\VacationApp.dir
   OBJECT_FILE_DIR = CMakeFiles\VacationApp.dir
 
+build CMakeFiles/VacationApp.dir/verticalheaderitem.cpp.obj: CXX_COMPILER__VacationApp_unscanned_Debug C$:/Users/Ace/Documents/VacationApp/verticalheaderitem.cpp || cmake_object_order_depends_target_VacationApp
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE5COMPAT_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_SQL_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\VacationApp.dir\verticalheaderitem.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/include -isystem D:/qt/6.8.0/mingw_64/include/QtCore -isystem D:/qt/6.8.0/mingw_64/include -isystem D:/qt/6.8.0/mingw_64/mkspecs/win32-g++ -isystem D:/qt/6.8.0/mingw_64/include/QtWidgets -isystem D:/qt/6.8.0/mingw_64/include/QtGui -isystem D:/qt/6.8.0/mingw_64/include/QtSql -isystem "C:/Program Files/PostgreSQL/16/include" -isystem "C:/Program Files/PostgreSQL/16/include/server" -isystem D:/qt/6.8.0/mingw_64/include/QtCore5Compat
+  OBJECT_DIR = CMakeFiles\VacationApp.dir
+  OBJECT_FILE_DIR = CMakeFiles\VacationApp.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target VacationApp
@@ -121,7 +129,7 @@ build CMakeFiles/VacationApp.dir/employeeadddialog.cpp.obj: CXX_COMPILER__Vacati
 #############################################
 # Link the executable VacationApp.exe
 
-build VacationApp.exe: CXX_EXECUTABLE_LINKER__VacationApp_Debug CMakeFiles/VacationApp.dir/VacationApp_autogen/mocs_compilation.cpp.obj CMakeFiles/VacationApp.dir/main.cpp.obj CMakeFiles/VacationApp.dir/vacationtable.cpp.obj CMakeFiles/VacationApp.dir/vacationrectitem.cpp.obj CMakeFiles/VacationApp.dir/vacationscene.cpp.obj CMakeFiles/VacationApp.dir/vacationeditdialog.cpp.obj CMakeFiles/VacationApp.dir/horizontalheaderitem.cpp.obj CMakeFiles/VacationApp.dir/employeeadddialog.cpp.obj | D$:/qt/6.8.0/mingw_64/lib/libQt6Widgets.a D$:/qt/6.8.0/mingw_64/lib/libQt6Sql.a C$:/Program$ Files/PostgreSQL/16/lib/libpq.lib D$:/qt/6.8.0/mingw_64/lib/libQt6Core5Compat.a D$:/qt/6.8.0/mingw_64/lib/libQt6Gui.a D$:/qt/6.8.0/mingw_64/lib/libQt6Core.a D$:/qt/6.8.0/mingw_64/lib/libQt6EntryPoint.a || VacationApp_autogen VacationApp_autogen_timestamp_deps
+build VacationApp.exe: CXX_EXECUTABLE_LINKER__VacationApp_Debug CMakeFiles/VacationApp.dir/VacationApp_autogen/mocs_compilation.cpp.obj CMakeFiles/VacationApp.dir/main.cpp.obj CMakeFiles/VacationApp.dir/vacationtable.cpp.obj CMakeFiles/VacationApp.dir/vacationrectitem.cpp.obj CMakeFiles/VacationApp.dir/vacationscene.cpp.obj CMakeFiles/VacationApp.dir/vacationeditdialog.cpp.obj CMakeFiles/VacationApp.dir/horizontalheaderitem.cpp.obj CMakeFiles/VacationApp.dir/employeeadddialog.cpp.obj CMakeFiles/VacationApp.dir/verticalheaderitem.cpp.obj | D$:/qt/6.8.0/mingw_64/lib/libQt6Widgets.a D$:/qt/6.8.0/mingw_64/lib/libQt6Sql.a C$:/Program$ Files/PostgreSQL/16/lib/libpq.lib D$:/qt/6.8.0/mingw_64/lib/libQt6Core5Compat.a D$:/qt/6.8.0/mingw_64/lib/libQt6Gui.a D$:/qt/6.8.0/mingw_64/lib/libQt6Core.a D$:/qt/6.8.0/mingw_64/lib/libQt6EntryPoint.a || VacationApp_autogen VacationApp_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_FLAGS = -mwindows
   LINK_LIBRARIES = D:/qt/6.8.0/mingw_64/lib/libQt6Widgets.a  D:/qt/6.8.0/mingw_64/lib/libQt6Sql.a  "C:/Program Files/PostgreSQL/16/lib/libpq.lib"  D:/qt/6.8.0/mingw_64/lib/libQt6Core5Compat.a  D:/qt/6.8.0/mingw_64/lib/libQt6Gui.a  -ld3d11  -ldxgi  -ldxguid  -ld3d12  D:/qt/6.8.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  D:/qt/6.8.0/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
