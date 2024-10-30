@@ -115,3 +115,6 @@ INSERT INTO DateOfVacation (employee_id, vacation_start, vacation_finish) VALUES
   (23, '2024-12-05', '2024-12-19'),
   (24, '2024-12-05', '2024-12-19'),
   (24, '2024-02-16', '2024-03-01');
+
+UPDATE DateOfVacation 
+SET vacation_finish = vacation_finish - INTERVAL '1 day';

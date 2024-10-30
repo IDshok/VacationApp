@@ -17,8 +17,5 @@ void HorizontalHeaderItem::setText(QString text)
 
 void HorizontalHeaderItem::updateColor(int employeeCount, int norm)
 {
-    if (employeeCount > norm)
-        this->setBrush(Qt::red); // Красный, если количество сотрудников превышает норму
-    else
-        this->setBrush(Qt::green); // Зеленый, если количество сотрудников не превышает норму
+    this->setBrush(employeeCount > norm ? Qt::red : Qt::green);
 }

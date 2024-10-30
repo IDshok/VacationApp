@@ -22,6 +22,9 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QToolBar>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QSqlRecord>
 
 VacationTable::VacationTable(QWidget *parent)
     : QWidget(parent)
@@ -29,19 +32,30 @@ VacationTable::VacationTable(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("График отпусков на календарный год");
-    connectToDatabase();
+    bool connected = connectToDatabase();
+    if (!connected) {
+        QMessageBox::critical(this, "Ошибка", "Отсутствует подключение к базе данных. Приложение будет закрыто!");
+        QApplication::quit();
+    }
 
     cellSize = {124, 25};
     int tableHeight = cellSize.height();
     int tableWidth = cellSize.width();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT (SELECT COUNT(*) FROM employees) AS employee_count, (SELECT COUNT(*) FROM norms) AS norm_count"));
+    query.prepare(QString("SELECT (SELECT COUNT(id) FROM employees) AS employee_count, (SELECT COUNT(month) FROM norms) AS month_count"));
     if(query.exec())
     {
-        query.first();
-        tableHeight += cellSize.height() * (query.value(0).toInt());
-        tableWidth += cellSize.width() * (query.value(1).toInt());
+        QString employee_count = query.record().fieldName(0);
+        QString month_count = query.record().fieldName(1);
+        if(!query.first())
+        {
+            qDebug() << "Ошибка получения данных для прорисовки таблицы: " + query.lastError().text();
+            QMessageBox::critical(this, "Ошибка", "Ошибка получения данных для прорисовки таблицы");
+            return;
+        }
+        tableHeight += cellSize.height() * (query.value(employee_count).toInt());
+        tableWidth += cellSize.width() * (query.value(month_count).toInt());
     }
     else
     {
@@ -81,41 +95,55 @@ VacationTable::~VacationTable()
     delete ui;
 }
 
-void VacationTable::connectToDatabase()
+bool VacationTable::connectToDatabase()
 {
+    QSettings settings(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/settings.ini", QSettings::IniFormat);
+
+    QString host = settings.value("database/host", "localhost").toString();
+    QString dbName = settings.value("database/name", "postgres").toString();
+    QString userName = settings.value("database/user", "postgres").toString();
+    QString password = settings.value("database/password", "1234").toString();
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setDatabaseName("postgres");
-    db.setUserName("postgres");
-    db.setPassword("1234");
+    db.setHostName(host);
+    db.setDatabaseName(dbName);
+    db.setUserName(userName);
+    db.setPassword(password);
 
     if (!db.open()) {
         qDebug() << "Ошибка подключения к базе данных:" << db.lastError().text();
-        return;
+        return false;
     }
     qDebug() << "Подключение к базе данных успешно";
+    return true;
 }
 
 void VacationTable::drawHeaders()
 {  
     QSqlQuery query;
-    query.prepare("SELECT n.month, n.norm, COUNT(DISTINCT e.id), n.month_number AS employee_count FROM norms n LEFT JOIN DateOfVacation dov ON EXTRACT(MONTH FROM dov.vacation_start) = n.month_number OR EXTRACT(MONTH FROM dov.vacation_finish) = n.month_number LEFT JOIN employees e ON dov.employee_id = e.id GROUP BY n.month ORDER BY n.month_number;");
+    query.prepare("SELECT n.month, n.norm, COUNT(DISTINCT e.id) AS employee_count, n.month_number FROM norms n LEFT JOIN DateOfVacation dov ON EXTRACT(MONTH FROM dov.vacation_start) = n.month_number OR EXTRACT(MONTH FROM dov.vacation_finish) = n.month_number LEFT JOIN employees e ON dov.employee_id = e.id GROUP BY n.month ORDER BY n.month_number;");
     if(query.exec())
     {
         int x = cellSize.width();
-        for(int i = 0; query.next(); i++)
+        if(!query.first())
         {
-            int norm = query.value(1).toInt();
-            int employeeCount = query.value(2).toInt();
+            qDebug() << "Ошибка получения данных о нормативах из базы данных: " + query.lastError().text();
+            QMessageBox::critical(this, "Ошибка", "Ошибка получения данных о нормативах из базы данных");
+            return;
+        }
+        do
+        {
+            int norm = query.value("norm").toInt();
+            int employeeCount = query.value("employee_count").toInt();
 
             HorizontalHeaderItem *monthRect = new HorizontalHeaderItem(x, 0, cellSize.width(), cellSize.height());
             monthRect->updateColor(employeeCount, norm);
-            monthRect->setText(query.value(0).toString());
+            monthRect->setText(query.value("month").toString());
             monthRect->setData(0, norm);
-            monthRect->setData(1, query.value(3));
+            monthRect->setData(1, query.value("month_number"));
             scene->addItem(monthRect);
             x += cellSize.width();
-        }
+        } while(query.next());
     }
     else
     {
@@ -128,11 +156,17 @@ void VacationTable::drawHeaders()
     if(query.exec())
     {
         int y = cellSize.height();
-        while(query.next()) {
-            QGraphicsTextItem *employeeText = scene->addText(query.value(1).toString());
+        if(!query.first())
+        {
+            qDebug() << "Ошибка получения данных о сотрудниках из базы данных: " + query.lastError().text();
+            QMessageBox::critical(this, "Ошибка", "Ошибка получения данных о сотрудниках из базы данных");
+            return;
+        }
+        do {
+            QGraphicsTextItem *employeeText = scene->addText(QString("%1. %2").arg(query.value("id").toString(),query.value("fio").toString()));
             employeeText->setPos(5, y);
             y += cellSize.height();
-        }
+        } while(query.next());
     }
     else
     {
@@ -150,34 +184,39 @@ void VacationTable::drawVacations()
         int xOffset = cellSize.width();
         int yOffset = cellSize.height();
         //QMap<int, QString> employeeFios; // Мапа для хранения ФИО сотрудников e.surname, e.patronymic, e.name,
-        while (query.next())
+        if(!query.first())
         {
-            int vacationId = query.value(3).toInt();
-            int employeeId = query.value(0).toInt();
-            QDate startDate = query.value(1).toDate();
-            QDate finishDate = query.value(2).toDate();
+            qDebug() << "Ошибка получения данных об отпусках из базы данных: " + query.lastError().text();
+            QMessageBox::critical(this, "Ошибка", "Ошибка получения данных об отпусках из базы данных");
+            return;
+        }
+        do
+        {
+            int vacationId = query.value("dateofvacation.id").toInt();
+            int employeeId = query.value("employees.id").toInt();
+            QDate startDate = query.value("vacation_start").toDate();
+            QDate finishDate = query.value("vacation_finish").toDate();
             // Рассчитываем продолжительность отпуска
-            int duration = startDate.daysTo(finishDate); // duration > 0, если finishDate > startDate
+            int duration = startDate.daysTo(finishDate) + 1;//?
             int startMonth = startDate.month() - 1;
             int startDay = startDate.day() - 1;
-            // int monthDifference = abs(finishDate.daysInMonth() - startDate.daysInMonth());
             qreal x = startMonth * cellSize.width() + startDay * ((qreal)cellSize.width()/startDate.daysInMonth()) + xOffset;
             qreal y = (employeeId-1) * cellSize.height() + yOffset;
-            qreal controlWidth = (duration-1) * (qreal)cellSize.width() / startDate.daysInMonth();
-            if (finishDate.month() != startDate.month()) {
-                // Если отпуск продолжается в следующий месяц, добавляем к ширине часть следующего месяца
-                controlWidth += finishDate.day() * (qreal)cellSize.width() / finishDate.daysInMonth();
-            }
-            //qreal controlWidth = duration*((qreal)cellSize.width())/((qreal)(startDate.daysInMonth() + finishDate.daysInMonth())/2);
+            // qreal controlWidth = (duration) * (qreal)cellSize.width() / startDate.daysInMonth();//?
+            // if (finishDate.month() != startDate.month()) {
+            //     // Если отпуск продолжается в следующий месяц, добавляем к ширине часть следующего месяца
+            //     controlWidth += finishDate.day() * (qreal)cellSize.width() / finishDate.daysInMonth();
+            // }
+            qreal controlWidth = duration*((qreal)cellSize.width())/((qreal)(startDate.daysInMonth() + finishDate.daysInMonth())/2);
             VacationRectItem *vacationRect = new VacationRectItem(x, y, controlWidth,  cellSize.height());
             vacationRect->setText(QString::number(duration));
             vacationRect->setVacationId(vacationId);
             vacationRect->setEmployeeId(employeeId);
             vacationRect->setStartDate(startDate);
             vacationRect->setFinishDate(finishDate);
-            vacationRect->setToolTip(QString("Начало отпуска: %1 \nОкончание отпуска: %2").arg(vacationRect->startDate().toString("dd.MM.yyyy")).arg(vacationRect->finishDate().toString("dd.MM.yyyy")));
+            vacationRect->setToolTip(QString("Начало отпуска: %1 \nОкончание отпуска: %2").arg(vacationRect->startDate().toString("dd.MM.yyyy"), vacationRect->finishDate().toString("dd.MM.yyyy")));
             scene->addItem(vacationRect);
-        }
+        }while (query.next());
     }
     else
     {
@@ -188,11 +227,11 @@ void VacationTable::drawVacations()
 
 void VacationTable::addNewEmployee()
 {
-    EmployeeAddDialog *dialog = new EmployeeAddDialog();
+    QScopedPointer<EmployeeAddDialog> dialog(new EmployeeAddDialog());
     if(dialog->exec() == QDialog::Accepted)
     {
         scene->addRow();
-        QGraphicsTextItem *employeeText = scene->addText(dialog->formatName());
+        QGraphicsTextItem *employeeText = scene->addText(dialog->employeeId() +"." + dialog->formatName());
         employeeText->setPos(5, cellSize.height()*dialog->employeeId());
     }
 }

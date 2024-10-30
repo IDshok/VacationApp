@@ -21,7 +21,7 @@ class VacationTable : public QWidget
 public:
     VacationTable(QWidget *parent = nullptr);
     ~VacationTable();
-    void connectToDatabase();
+    bool connectToDatabase();
     void drawHeaders();
     void drawVacations();
 private slots:

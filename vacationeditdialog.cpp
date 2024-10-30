@@ -21,12 +21,25 @@ VacationEditDialog::~VacationEditDialog()
 {
     delete ui;
 }
+
+void VacationEditDialog::handleDatabaseError() {
+    qDebug() << "Ошибка получения данных из базы данных";
+    QMessageBox::critical(this, "Ошибка", "Ошибка получения данных из базы данных! Окно редактирования будет закрыто.");
+    reject();
+    return;
+}
+
 void VacationEditDialog::setValue(const int employeeId, const QDate &startDate, const QDate &finishDate) {
     queryForValidation.prepare("SELECT id, vacation_start, vacation_finish FROM dateofvacation WHERE employee_id = :employeeId");
     queryForValidation.bindValue(":employeeId", employeeId);
     if(queryForValidation.exec())
     {
         qDebug() << "Запрос для проверки получен";
+        if(!queryForValidation.first())
+        {
+            handleDatabaseError();
+        }
+
     }
     else
     {
@@ -43,14 +56,15 @@ void VacationEditDialog::setValue(const int employeeId, const QDate &startDate, 
         reject();
         return;
     }
-    ui->w_duration->setMaximum(totalVacationLimit - employeeDays + startDate.daysTo(finishDate));
+    qDebug() << employeeDays << startDate.daysTo(finishDate.addDays(1));
+    ui->w_duration->setMaximum(totalVacationLimit - employeeDays + startDate.daysTo(finishDate.addDays(1)));//?
     ui->w_duration->setMinimum(1);
-    ui->w_duration->setValue(startDate.daysTo(finishDate));
-    ui->w_duration->setToolTip(QString::number(totalVacationLimit - employeeDays + startDate.daysTo(finishDate)));
+    ui->w_duration->setValue(startDate.daysTo(finishDate.addDays(1)));//?
+    ui->w_duration->setToolTip(QString::number(totalVacationLimit - employeeDays + startDate.daysTo(finishDate.addDays(1))));//?
 
     m_employeeId = employeeId;
     m_previousStartDate = startDate;
-    m_previousDuration = startDate.daysTo(finishDate);
+    m_previousDuration = startDate.daysTo(finishDate.addDays(1));//?
 }
 
 void VacationEditDialog::setVacatrionId(const int vacationId)
@@ -63,7 +77,7 @@ QDate VacationEditDialog::startDate() const {
 }
 
 QDate VacationEditDialog::finishDate() const {
-    return ui->w_startDate->date().addDays(ui->w_duration->value());
+    return ui->w_startDate->date().addDays(ui->w_duration->value()-1);//?
 }
 
 int VacationEditDialog::employeeId() const
@@ -83,14 +97,13 @@ int VacationEditDialog::duration() const
 
 int VacationEditDialog::getEmployeeDays(int employeeId) {
     QSqlQuery query;
-    query.prepare(QString("SELECT SUM(vacation_finish - vacation_start) FROM dateofvacation WHERE employee_id = :employeeId"));
+    query.prepare(QString("SELECT SUM(vacation_finish - vacation_start + 1) FROM dateofvacation WHERE employee_id = :employeeId"));
     query.bindValue(":employeeId", employeeId);
 
     if (query.exec())
     {
         if (query.next())
         {
-            qDebug() << query.value(0).toInt();
             return query.value(0).toInt();
         }
         else
@@ -113,7 +126,7 @@ void VacationEditDialog::on_btn_save_clicked()
     QSqlQuery query;
     query.prepare("UPDATE DateOfVacation SET vacation_start = :startDate, vacation_finish = :finishDate WHERE id = :vacationId");
     query.bindValue(":startDate", ui->w_startDate->date());
-    query.bindValue(":finishDate", ui->w_startDate->date().addDays(ui->w_duration->value()));
+    query.bindValue(":finishDate", ui->w_startDate->date().addDays(ui->w_duration->value()-1));//?
     query.bindValue(":vacationId", m_vacationId);
     if (query.exec())
     {
@@ -142,12 +155,11 @@ void VacationEditDialog::on_w_startDate_userDateChanged(const QDate &date)
     queryForValidation.first();
     do
     {
-        if ((m_vacationId != queryForValidation.value(0).toInt()) &&
+        if ((m_vacationId != queryForValidation.value("id").toInt()) &&
             (
-                (date >= queryForValidation.value(1).toDate() && date <= queryForValidation.value(2).toDate()) ||
+                (date >= queryForValidation.value("vacation_start").toDate().addDays(-1) && date <= queryForValidation.value("vacation_finish").toDate().addDays(1))
                 // Проверка на начало отпуска на 1 день раньше, отпсука не могут идти день в день (не логично их так разбивать)
-                (date == queryForValidation.value(1).toDate().addDays(-1))
-            ))
+                                                                         ))
         {
             isDateValid = false;
             break;
@@ -156,15 +168,17 @@ void VacationEditDialog::on_w_startDate_userDateChanged(const QDate &date)
         // то ставим длительность от установленной даты и до начала другой даты минус один день,
         // т.к. два отпуска, должны считать отдельными если у них разница хотя бы в  один день
         // нужна проверка, если длительность больше проверяемого блока, т.к. тогда условия удовлетворяются и диапазон перекрывает другой (сделал)
-        if ((m_vacationId != queryForValidation.value(0).toInt()) &&
+        if ((m_vacationId != queryForValidation.value("id").toInt()) &&
             (
-                // Проверка на пересечение с началом и концом отпуска
-                (date.addDays(ui->w_duration->value()) >= queryForValidation.value(1).toDate() && date.addDays(ui->w_duration->value())<= queryForValidation.value(2).toDate()) ||
+                // Проверка на пересечение с началом и концом отпуска//?
+                (date.addDays(ui->w_duration->value()-1) >= queryForValidation.value("vacation_start").toDate() && date.addDays(ui->w_duration->value()-1)<= queryForValidation.value("vacation_finish").toDate()) ||
                 // Проверка на пересечение с началом отпуска
-                (date < queryForValidation.value(1).toDate() && date.addDays(ui->w_duration->value()) >= queryForValidation.value(1).toDate())
+                (date < queryForValidation.value("vacation_start").toDate() && date.addDays(ui->w_duration->value()-1) >= queryForValidation.value("vacation_start").toDate()) ||
+
+                (date.addDays(ui->w_duration->value()-1) == queryForValidation.value("vacation_start").toDate().addDays(-1))//?
             ))
         {
-            ui->w_duration->setValue(date.daysTo(queryForValidation.value(1).toDate()) - 1);
+            ui->w_duration->setValue(date.daysTo(queryForValidation.value(1).toDate()) - 1);//?
         }
     } while (queryForValidation.next());
 
@@ -184,13 +198,14 @@ void VacationEditDialog::on_w_duration_valueChanged(int arg1)
     bool isDurationValid = true;
     do
     {
-        if ((m_vacationId != queryForValidation.value(0).toInt()) &&
+        if ((m_vacationId != queryForValidation.value("id").toInt()) &&
             (
                 // Проверка на пересечение с началом и концом отпуска
-                (ui->w_startDate->date().addDays(arg1) >= queryForValidation.value(1).toDate() && ui->w_startDate->date().addDays(arg1) <= queryForValidation.value(2).toDate())||
+                (ui->w_startDate->date().addDays(arg1-1) >= queryForValidation.value("vacation_start").toDate() && ui->w_startDate->date().addDays(arg1-1) <= queryForValidation.value("vacation_finish").toDate())||
                 // Проверка на пересечение с началом отпуска
-                (ui->w_startDate->date().addDays(arg1) > queryForValidation.value(2).toDate() && ui->w_startDate->date() < queryForValidation.value(1).toDate())
-            ))
+                (ui->w_startDate->date().addDays(arg1-1) > queryForValidation.value("vacation_finish").toDate() && ui->w_startDate->date() < queryForValidation.value("vacation_start").toDate()) ||
+                (ui->w_startDate->date().addDays(arg1-1) == queryForValidation.value("vacation_start").toDate().addDays(-1))
+            ))//?
         {
             isDurationValid = false;
             break;

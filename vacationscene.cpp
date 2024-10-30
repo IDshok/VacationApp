@@ -3,6 +3,8 @@
 #include "horizontalheaderitem.h"
 #include "vacationeditdialog.h"
 
+#include <QSqlError>
+
 void VacationScene::addRow() {
     // Получаем текущую высоту сцены
     int currentHeight = sceneRect().height();
@@ -71,12 +73,13 @@ void VacationScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                     int startMonth = newStartDate.month() - 1;
                     int startDay = newStartDate.day() - 1;
                     qreal x = startMonth * m_cellSize.width() + startDay * ((qreal)m_cellSize.width()/newStartDate.daysInMonth()) + m_cellSize.width();
-                    qreal controlWidth = (duration-1) * (qreal)m_cellSize.width() / newStartDate.daysInMonth();
-                    if (newFinisDate.month() != newStartDate.month()) {
-                        // Если отпуск продолжается в следующий месяц, добавляем к ширине часть следующего месяца
-                        controlWidth += newFinisDate.day() * (qreal)m_cellSize.width() / newFinisDate.daysInMonth();
-                    }
-                    //qreal controlWidth = duration * (qreal)m_cellSize.width()/((qreal)(newStartDate.daysInMonth() + newFinisDate.daysInMonth())/2);
+                    // qreal controlWidth = (duration) * (qreal)m_cellSize.width() / newStartDate.daysInMonth();//?
+                    // if (newFinisDate.month() != newStartDate.month()) {
+                    //     // Если отпуск продолжается в следующий месяц, добавляем к ширине часть следующего месяца
+                    //     controlWidth += newFinisDate.day() * (qreal)m_cellSize.width() / newFinisDate.daysInMonth();
+                    // }
+
+                    qreal controlWidth = duration * (qreal)m_cellSize.width()/((qreal)(newStartDate.daysInMonth() + newFinisDate.daysInMonth())/2);
                     castItem->updateElement(x, controlWidth, QString::number(duration));
                     castItem->setVacationId(vacationId);
                     castItem->setEmployeeId(employeeId);
@@ -102,10 +105,21 @@ void VacationScene::updateScene()
                 int norm = headerItem->data(0).toInt(); // Получаем норму для текущего месяца
                 // Запрос для подсчета сотрудников с отпуском в текущем месяце
                 QSqlQuery countQuery;
-                countQuery.exec(QString("SELECT COUNT(DISTINCT e.id) FROM employees e JOIN DateOfVacation dov ON e.id = dov.employee_id WHERE EXTRACT(MONTH FROM dov.vacation_start) = %1 OR EXTRACT(MONTH FROM dov.vacation_finish) = %1").arg(month));
-                countQuery.first();
-                int employeeCount = countQuery.value(0).toInt();
-                headerItem->updateColor(employeeCount, norm);
+                countQuery.prepare("SELECT COUNT(DISTINCT e.id) AS current_month_count FROM employees e JOIN DateOfVacation dov ON e.id = dov.employee_id WHERE EXTRACT(MONTH FROM dov.vacation_start) = :month OR EXTRACT(MONTH FROM dov.vacation_finish) = :month");
+                countQuery.bindValue(":month", month);
+                if(countQuery.exec())
+                {
+                    if(countQuery.first())
+                    {
+                        int employeeCount = countQuery.value("current_month_count").toInt();
+                        headerItem->updateColor(employeeCount, norm);
+                    }
+                    else
+                        qDebug() << "Ошибка получения данных, для обновления цветовой индикации месяцев!";
+                }
+                else
+                    qDebug() << "Ошибка выполнения запроса обновления цветовой индикации месяцев!" << countQuery.lastError().text();
+
             }
         }
     }

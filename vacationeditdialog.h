@@ -37,6 +37,8 @@ private slots:
     void on_w_duration_valueChanged(int arg1);
 
 private:
+    void handleDatabaseError();
+
     int getEmployeeDays(int employeeId);
     QSqlQuery queryForValidation;
     Ui::VacationEditDialog *ui;

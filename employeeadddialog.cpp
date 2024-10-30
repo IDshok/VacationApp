@@ -67,7 +67,7 @@ void EmployeeAddDialog::on_btn_save_clicked()
     if (query.exec(insertQuery))
     {
         query.first();
-        m_employeeId = query.value(0).toInt();
+        m_employeeId = query.value("id").toInt();
         qDebug() << "Новый сотрудник добавлен с ID:" << m_employeeId;
     }
     else
