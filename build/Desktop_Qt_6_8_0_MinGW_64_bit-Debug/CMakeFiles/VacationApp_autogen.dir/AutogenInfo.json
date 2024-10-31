@@ -392,6 +392,12 @@
 			null
 		],
 		[
+			"C:/Users/Ace/Documents/VacationApp/vacationadddialog.h",
+			"MU",
+			"EWIEGA46WW/moc_vacationadddialog.cpp",
+			null
+		],
+		[
 			"C:/Users/Ace/Documents/VacationApp/vacationeditdialog.h",
 			"MU",
 			"EWIEGA46WW/moc_vacationeditdialog.cpp",
@@ -510,6 +516,11 @@
 			null
 		],
 		[ "C:/Users/Ace/Documents/VacationApp/main.cpp", "MU", null ],
+		[
+			"C:/Users/Ace/Documents/VacationApp/vacationadddialog.cpp",
+			"MU",
+			null
+		],
 		[
 			"C:/Users/Ace/Documents/VacationApp/vacationeditdialog.cpp",
 			"MU",

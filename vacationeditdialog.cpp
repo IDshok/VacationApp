@@ -164,21 +164,17 @@ void VacationEditDialog::on_w_startDate_userDateChanged(const QDate &date)
             isDateValid = false;
             break;
         }
-        // Здесь проверка, если конечная дата отпуска попадает в диапазон другой даты,
-        // то ставим длительность от установленной даты и до начала другой даты минус один день,
-        // т.к. два отпуска, должны считать отдельными если у них разница хотя бы в  один день
-        // нужна проверка, если длительность больше проверяемого блока, т.к. тогда условия удовлетворяются и диапазон перекрывает другой (сделал)
         if ((m_vacationId != queryForValidation.value("id").toInt()) &&
             (
-                // Проверка на пересечение с началом и концом отпуска//?
+                // Проверка на пересечение с началом и концом отпуска
                 (date.addDays(ui->w_duration->value()-1) >= queryForValidation.value("vacation_start").toDate() && date.addDays(ui->w_duration->value()-1)<= queryForValidation.value("vacation_finish").toDate()) ||
                 // Проверка на пересечение с началом отпуска
                 (date < queryForValidation.value("vacation_start").toDate() && date.addDays(ui->w_duration->value()-1) >= queryForValidation.value("vacation_start").toDate()) ||
 
-                (date.addDays(ui->w_duration->value()-1) == queryForValidation.value("vacation_start").toDate().addDays(-1))//?
+                (date.addDays(ui->w_duration->value()-1) == queryForValidation.value("vacation_start").toDate().addDays(-1))
             ))
         {
-            ui->w_duration->setValue(date.daysTo(queryForValidation.value(1).toDate()) - 1);//?
+            ui->w_duration->setValue(date.daysTo(queryForValidation.value("vacation_start").toDate()) - 1);
         }
     } while (queryForValidation.next());
 

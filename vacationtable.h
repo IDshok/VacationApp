@@ -26,6 +26,8 @@ public:
     void drawVacations();
 private slots:
     void addNewEmployee();
+
+    void addVacation();
 private:
     Ui::VacationTable *ui;
     VacationScene* scene;

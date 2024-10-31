@@ -10,6 +10,8 @@ VacationApp_autogen/timestamp: \
 	C:/Users/Ace/Documents/VacationApp/horizontalheaderitem.cpp \
 	C:/Users/Ace/Documents/VacationApp/horizontalheaderitem.h \
 	C:/Users/Ace/Documents/VacationApp/main.cpp \
+	C:/Users/Ace/Documents/VacationApp/vacationadddialog.cpp \
+	C:/Users/Ace/Documents/VacationApp/vacationadddialog.h \
 	C:/Users/Ace/Documents/VacationApp/vacationeditdialog.cpp \
 	C:/Users/Ace/Documents/VacationApp/vacationeditdialog.h \
 	C:/Users/Ace/Documents/VacationApp/vacationrectitem.cpp \
@@ -650,6 +652,7 @@ VacationApp_autogen/timestamp: \
 	D:/qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
 	D:/qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
 	C:/Users/Ace/Documents/VacationApp/employeeadddialog.ui \
+	C:/Users/Ace/Documents/VacationApp/vacationadddialog.ui \
 	C:/Users/Ace/Documents/VacationApp/vacationeditdialog.ui \
 	C:/Users/Ace/Documents/VacationApp/vacationtable.ui \
 	D:/qt/Tools/CMake_64/bin/cmake.exe

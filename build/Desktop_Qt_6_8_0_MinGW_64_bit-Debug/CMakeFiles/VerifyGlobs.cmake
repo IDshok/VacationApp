@@ -49,6 +49,7 @@ set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.cpp"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_employeeadddialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_horizontalheaderitem.cpp"
+  "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationadddialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationeditdialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationrectitem.cpp"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationscene.cpp"
@@ -57,6 +58,7 @@ set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/employeeadddialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/horizontalheaderitem.cpp"
   "C:/Users/Ace/Documents/VacationApp/main.cpp"
+  "C:/Users/Ace/Documents/VacationApp/vacationadddialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/vacationeditdialog.cpp"
   "C:/Users/Ace/Documents/VacationApp/vacationrectitem.cpp"
   "C:/Users/Ace/Documents/VacationApp/vacationscene.cpp"
@@ -83,11 +85,13 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/Ace/Documents/VacationApp/*.h")
 set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/include/ui_employeeadddialog.h"
+  "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/include/ui_vacationadddialog.h"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/include/ui_vacationeditdialog.h"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/include/ui_vacationtable.h"
   "C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/moc_predefs.h"
   "C:/Users/Ace/Documents/VacationApp/employeeadddialog.h"
   "C:/Users/Ace/Documents/VacationApp/horizontalheaderitem.h"
+  "C:/Users/Ace/Documents/VacationApp/vacationadddialog.h"
   "C:/Users/Ace/Documents/VacationApp/vacationeditdialog.h"
   "C:/Users/Ace/Documents/VacationApp/vacationrectitem.h"
   "C:/Users/Ace/Documents/VacationApp/vacationscene.h"
@@ -204,6 +208,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/Ace/Documents/VacationApp/*.ui")
 set(OLD_GLOB
   "C:/Users/Ace/Documents/VacationApp/employeeadddialog.ui"
+  "C:/Users/Ace/Documents/VacationApp/vacationadddialog.ui"
   "C:/Users/Ace/Documents/VacationApp/vacationeditdialog.ui"
   "C:/Users/Ace/Documents/VacationApp/vacationtable.ui"
   )

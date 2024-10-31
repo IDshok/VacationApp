@@ -2,6 +2,7 @@
 #include "horizontalheaderitem.h"
 #include "verticalheaderitem.h"
 #include "employeeadddialog.h"
+#include "vacationadddialog.h"
 #include "vacationtable.h"
 #include "./ui_vacationtable.h"
 
@@ -66,7 +67,9 @@ VacationTable::VacationTable(QWidget *parent)
 
     auto toolbar = new QToolBar();
     QAction *saveAct = new QAction("Добавить сотрудника", toolbar);
+    QAction *addVacation = new QAction("Добавить отпуск", toolbar);
     toolbar->addAction(saveAct);
+    toolbar->addAction(addVacation);
     toolbar->setStyleSheet("QToolBar {border: 1px solid black }");
 
     auto layout = new QVBoxLayout();
@@ -89,6 +92,7 @@ VacationTable::VacationTable(QWidget *parent)
     setLayout(layout);
 
     connect(saveAct, &QAction::triggered, this, &VacationTable::addNewEmployee);
+    connect(addVacation, &QAction::triggered, this, &VacationTable::addVacation);
 }
 
 VacationTable::~VacationTable()
@@ -258,5 +262,32 @@ void VacationTable::addNewEmployee()
         employeeItem->setText(QString("%1. %2").arg(QString::number(dialog->employeeId()), dialog->formatName()));
         // QGraphicsTextItem *employeeText = scene->addText(QString::number(dialog->employeeId()) +". " + dialog->formatName());
         // employeeText->setPos(5, cellSize.height()*dialog->employeeId());
+    }
+}
+
+void VacationTable::addVacation()
+{
+    QScopedPointer<VacationAddDialog> dialog(new VacationAddDialog());
+    connect(dialog.data(), &VacationAddDialog::vacationChanged, scene, &VacationScene::updateScene);
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        int id = dialog->employeeId();
+        QDate startDate = dialog->startDate();
+        QDate finishDate = dialog->finishDate();
+        int duration = dialog->duration();
+        int startMonth = startDate.month() - 1;
+        int startDay = startDate.day() - 1;
+
+        qreal x = startMonth * cellSize.width() + startDay * ((qreal)cellSize.width()/startDate.daysInMonth()) + cellSize.width();
+        qreal y = (id-1) * cellSize.height() + cellSize.height();
+        qreal controlWidth = duration * (qreal)cellSize.width()/((qreal)(startDate.daysInMonth() + finishDate.daysInMonth())/2);
+        VacationRectItem *vacationRect = new VacationRectItem(x, y, controlWidth,  cellSize.height());
+        vacationRect->setText(QString::number(duration));
+        vacationRect->setVacationId(dialog->vacationId());
+        vacationRect->setEmployeeId(id);
+        vacationRect->setStartDate(startDate);
+        vacationRect->setFinishDate(finishDate);
+        vacationRect->setToolTip(QString("Начало отпуска: %1 \nОкончание отпуска: %2").arg(vacationRect->startDate().toString("dd.MM.yyyy"), vacationRect->finishDate().toString("dd.MM.yyyy")));
+        scene->addItem(vacationRect);
     }
 }
