@@ -158,13 +158,26 @@ void VacationScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     {
         item = item->parentItem();
     }
-    if (item && item->type() == VacationRectItem::Type) {
+    if (item && item->type() == VacationRectItem::Type)
+    {
         if (auto deleteItem = dynamic_cast<VacationRectItem*>(item))
         {
             QMenu *menu = new QMenu();
             QAction *deleteAction = menu->addAction("Удалить");
             connect(deleteAction, &QAction::triggered, [this, deleteItem]() {
                 deleteVacationItem(deleteItem);
+            });
+            menu->exec(event->screenPos());
+        }
+    }
+    if (item && item->type() == VerticalHeaderItem::Type)
+    {
+        if (auto deleteEmployeeItem = dynamic_cast<VerticalHeaderItem*>(item))
+        {
+            QMenu *menu = new QMenu();
+            QAction *deleteAction = menu->addAction("Удалить сотрудника");
+            connect(deleteAction, &QAction::triggered, [this, deleteEmployeeItem]() {
+                deleteEmployee(deleteEmployeeItem);
             });
             menu->exec(event->screenPos());
         }
@@ -184,4 +197,101 @@ void VacationScene::deleteVacationItem(VacationRectItem* item) {
         qDebug() << "Ошибка удаления отпуска из базы данных:" << query.lastError().text();
     }
     removeItem(item);
+}
+
+void VacationScene::deleteEmployee(VerticalHeaderItem *item) {
+    int employeeId = item->employeeId();
+
+    // Удаление сотрудника из базы данных
+    QSqlQuery query;
+    // query.prepare("DELETE FROM dateofvacation WHERE employee_id = :employee_id;");
+    // query.bindValue(":employee_id", employeeId);
+    // if (!query.exec()) {
+    //     qDebug() << "Ошибка удаления связанных отпусков:" << query.lastError().text();
+    // }
+    // query.prepare("UPDATE dateofvacation SET employee_id = employee_id - 1 WHERE employee_id > :employee_id");
+    // query.bindValue(":employee_id", employeeId);
+    // if (!query.exec()) {
+    //     qDebug() << "Ошибка обновления id сотрудников в отпусках:" << query.lastError().text();
+    //     return;
+    // }
+
+    query.prepare("DELETE FROM employees WHERE id = :employee_id;");
+    query.bindValue(":employee_id", employeeId);
+    if (!query.exec()) {
+        qDebug() << "Ошибка удаления сотрудника из базы данных:" << query.lastError().text();
+        return;
+    }
+
+    removeItem(item);
+
+
+    query.prepare("UPDATE employees SET id = id - 1 WHERE id > :employee_id");
+    query.bindValue(":employee_id", employeeId);
+    if (!query.exec()) {
+        qDebug() << "Ошибка обновления id сотрудников:" << query.lastError().text();
+        return;
+    }
+    int maxId;
+    query.prepare("SELECT MAX(id) FROM employees");
+    if (query.exec() && query.next()) {
+        maxId = query.value(0).toInt();
+        if(!query.exec(QString("ALTER SEQUENCE employees_id_seq RESTART WITH %1").arg(maxId + 1)))
+        {
+            qDebug() << "Ошибка обновления счетчика первичного ключа:" << query.lastError().text();
+        }
+    } else {
+        qDebug() << "Ошибка получения максимального id:" << query.lastError().text();
+    }
+    // обновляем индексацию в БД
+
+
+    // Удаление элементов отпуска со сцены
+    QList<VacationRectItem*> itemsToRemove;
+    for (auto anyItem : items()) {
+        if (anyItem->type() == VacationRectItem::Type) {
+            if(auto vacationItem = dynamic_cast<VacationRectItem*>(anyItem))
+            {
+                if (vacationItem->employeeId() == employeeId) {
+                    itemsToRemove.append(vacationItem);
+                }
+            }
+        }
+    }
+
+    for (auto itemToRemove : itemsToRemove) {
+        removeItem(itemToRemove);
+    }
+
+    for (auto anyItem : items()) {
+        if (anyItem->type() == VerticalHeaderItem::Type) {
+            if (auto headerItem = dynamic_cast<VerticalHeaderItem*>(anyItem)) {
+                if (headerItem->employeeId() > employeeId) {
+                    headerItem->setId(headerItem->employeeId()-1);
+                    headerItem->setText(QString("%1. %2").arg(QString::number(headerItem->employeeId()), QString("%1 %2. %3.").arg(headerItem->employeeSurname(), headerItem->employeeName().left(1), headerItem->employeePart().left(1))));
+                    // Сдвиг  y-координаты  для  элементов  после  удаленного
+                    headerItem->setPos(headerItem->x(), headerItem->y() - m_cellSize.height());
+                }
+            }
+        }
+        if (anyItem->type() == VacationRectItem::Type) {
+            if (auto vacationItem = dynamic_cast<VacationRectItem*>(anyItem)) {
+                if (vacationItem->employeeId() > employeeId) {
+                    vacationItem->setEmployeeId(vacationItem->employeeId()-1);
+                    // Сдвиг  y-координаты  для  элементов  ниже  удаленного
+                    vacationItem->updatePosition(vacationItem->x(), vacationItem->y()-m_cellSize.height());
+                }
+            }
+        }
+        if (anyItem->type() == QGraphicsLineItem::Type) {
+            // Проверяем, является ли линия нижней границей
+            if (auto line = dynamic_cast<QGraphicsLineItem*>(anyItem)){
+                    if (line->line().y2() == sceneRect().height()) {
+                    removeItem(line);
+                }
+            }
+        }
+    }
+    setSceneRect(0, 0, sceneRect().width(), sceneRect().height() - m_cellSize.height());
+    update();
 }

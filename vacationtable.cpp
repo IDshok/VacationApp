@@ -83,7 +83,7 @@ VacationTable::VacationTable(QWidget *parent)
     view = new QGraphicsView(scene, this);
     view->setGeometry(0, 0, tableWidth, tableHeight); // Размер виджета
     // Рисуем таблицу
-    scene->drawTable(tableWidth, tableHeight);
+    //scene->drawTable(tableWidth, tableHeight);
     drawHeaders();
     drawVacations();
 
@@ -129,6 +129,8 @@ void VacationTable::drawHeaders()
     query.prepare("SELECT n.month, n.norm, COUNT(DISTINCT e.id) AS employee_count, n.month_number FROM norms n LEFT JOIN DateOfVacation dov ON EXTRACT(MONTH FROM dov.vacation_start) = n.month_number OR EXTRACT(MONTH FROM dov.vacation_finish) = n.month_number LEFT JOIN employees e ON dov.employee_id = e.id GROUP BY n.month ORDER BY n.month_number;");
     if(query.exec())
     {
+        scene->addLine(0, 0, cellSize.width(), 0, scene->gridPen());
+        scene->addLine(0, 0, 0, cellSize.height(), scene->gridPen());
         int x = cellSize.width();
         if(!query.first())
         {
@@ -168,6 +170,7 @@ void VacationTable::drawHeaders()
             return;
         }
         do {
+            scene->addRow();
             VerticalHeaderItem *employeeItem = new VerticalHeaderItem(0, y, cellSize.width(), cellSize.height());
             employeeItem->setPen(QPen(Qt::black)); // Устанавливаем цвет границы
             employeeItem->setBrush(QBrush(Qt::lightGray)); // Устанавливаем цвет фона

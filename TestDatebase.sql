@@ -12,7 +12,7 @@ ALTER SEQUENCE employees_id_seq RESTART WITH 1;
 -- Создаем таблицу DateOfVacation
 CREATE TABLE DateOfVacation (
     id SERIAL PRIMARY KEY,
-    employee_id INTEGER REFERENCES employees(id) ON DELETE CASCADE,
+    employee_id INTEGER REFERENCES employees(id) ON DELETE CASCADE ON UPDATE CASCADE,
     vacation_start DATE NOT NULL,
     vacation_finish DATE NOT NULL
 );

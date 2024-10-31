@@ -6,6 +6,7 @@ C:/Users/Ace/Documents/VacationApp/vacationtable.h
  mdp:C:/Users/Ace/Documents/VacationApp/vacationrectitem.h
  mdp:C:/Users/Ace/Documents/VacationApp/vacationscene.h
  mdp:C:/Users/Ace/Documents/VacationApp/vacationtable.h
+ mdp:C:/Users/Ace/Documents/VacationApp/verticalheaderitem.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/QDate
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/q20functional.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/q20iterator.h
@@ -68,6 +69,7 @@ C:/Users/Ace/Documents/VacationApp/vacationtable.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmargins.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmath.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetacontainer.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetaobject.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetatype.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qminmax.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qnamespace.h
@@ -160,9 +162,16 @@ C:/Users/Ace/Documents/VacationApp/vacationtable.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qtransform.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/QSqlQuery
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qsqldatabase.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qsqlquery.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsql-config.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsqlexports.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsqlglobal.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsRectItem
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
+ mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsTextItem
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsView
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QMessageBox
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QWidget
@@ -398,6 +407,7 @@ C:/Users/Ace/Documents/VacationApp/vacationscene.h
  mdp:C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/moc_predefs.h
  mdp:C:/Users/Ace/Documents/VacationApp/vacationrectitem.h
  mdp:C:/Users/Ace/Documents/VacationApp/vacationscene.h
+ mdp:C:/Users/Ace/Documents/VacationApp/verticalheaderitem.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/QDate
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/q20functional.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/q20iterator.h
@@ -460,6 +470,7 @@ C:/Users/Ace/Documents/VacationApp/vacationscene.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmargins.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmath.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetacontainer.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetaobject.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qmetatype.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qminmax.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtCore/qnamespace.h
@@ -542,9 +553,16 @@ C:/Users/Ace/Documents/VacationApp/vacationscene.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qtransform.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/QSqlQuery
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qsqldatabase.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qsqlquery.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsql-config.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsqlexports.h
+ mdp:D:/qt/6.8.0/mingw_64/include/QtSql/qtsqlglobal.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsRectItem
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
+ mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsTextItem
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h
  mdp:D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicssceneevent.h

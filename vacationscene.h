@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include "vacationrectitem.h"
+#include "verticalheaderitem.h"
 
 class VacationScene : public QGraphicsScene
 {Q_OBJECT
@@ -22,6 +23,7 @@ private:
     QSize m_cellSize;
     QPen m_gridPen;
     void deleteVacationItem(VacationRectItem *item);
+    void deleteEmployee(VerticalHeaderItem *item);
 };
 
 #endif // VACATIONSCENE_H
