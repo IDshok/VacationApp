@@ -1,6 +1,8 @@
 C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationtable.cpp: C:/Users/Ace/Documents/VacationApp/vacationtable.h \
   C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/moc_predefs.h \
+  C:/Users/Ace/Documents/VacationApp/vacationrectitem.h \
   C:/Users/Ace/Documents/VacationApp/vacationscene.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/QDate \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20functional.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20iterator.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20memory.h \
@@ -20,6 +22,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearrayalgorithms.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearraylist.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearrayview.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qcalendar.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qchar.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcompare.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcompare_impl.h \
@@ -34,6 +37,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qcoreevent.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qdarwinhelpers.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qdatastream.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qdatetime.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qdebug.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qendian.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qexceptionhandling.h \
@@ -53,6 +57,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qlatin1stringview.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qline.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qlist.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qlocale.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qlogging.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmalloc.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmap.h \

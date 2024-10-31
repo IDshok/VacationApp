@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include "vacationrectitem.h"
 
 class VacationScene : public QGraphicsScene
 {Q_OBJECT
@@ -16,9 +17,11 @@ public:
     void updateScene();
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 private:
     QSize m_cellSize;
     QPen m_gridPen;
+    void deleteVacationItem(VacationRectItem *item);
 };
 
 #endif // VACATIONSCENE_H

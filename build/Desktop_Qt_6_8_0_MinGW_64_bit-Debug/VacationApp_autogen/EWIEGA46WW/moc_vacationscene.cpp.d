@@ -1,5 +1,7 @@
 C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/EWIEGA46WW/moc_vacationscene.cpp: C:/Users/Ace/Documents/VacationApp/vacationscene.h \
   C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/VacationApp_autogen/moc_predefs.h \
+  C:/Users/Ace/Documents/VacationApp/vacationrectitem.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/QDate \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20functional.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20iterator.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/q20memory.h \
@@ -19,6 +21,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearrayalgorithms.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearraylist.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qbytearrayview.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qcalendar.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qchar.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcompare.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcompare_impl.h \
@@ -29,9 +32,12 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qcontainerfwd.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcontainerinfo.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcontainertools_impl.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qcontiguouscache.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qcoreevent.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qdarwinhelpers.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qdatastream.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qdatetime.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qdebug.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qendian.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qexceptionhandling.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qflags.h \
@@ -50,8 +56,10 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qlatin1stringview.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qline.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qlist.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qlocale.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qlogging.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmalloc.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qmap.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmargins.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmath.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qmetacontainer.h \
@@ -73,6 +81,9 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qscopeguard.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qset.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qshareddata.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qshareddata_impl.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qsharedpointer.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qsharedpointer_impl.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qsize.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qspan.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qstring.h \
@@ -98,6 +109,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qtdeprecationdefinitions.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtdeprecationmarkers.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtenvironmentvariables.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qtextstream.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtmetamacros.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtnoop.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtpreprocessorsupport.h \
@@ -109,6 +121,8 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtCore/qtypeinfo.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qtypes.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qutf8stringview.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qvariant.h \
+  D:/qt/6.8.0/mingw_64/include/QtCore/qvarlengtharray.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qversiontagging.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qxptype_traits.h \
   D:/qt/6.8.0/mingw_64/include/QtCore/qyieldcpu.h \
@@ -117,6 +131,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtGui/qfont.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qimage.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qpaintdevice.h \
+  D:/qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qpen.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qpixelformat.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qpixmap.h \
@@ -130,8 +145,10 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/6.8.0/mingw_64/include/QtGui/qtransform.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs.h \
   D:/qt/6.8.0/mingw_64/include/QtGui/qwindowdefs_win.h \
+  D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsRectItem \
   D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsScene \
   D:/qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+  D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
   D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
   D:/qt/6.8.0/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
   D:/qt/6.8.0/mingw_64/include/QtWidgets/qtwidgets-config.h \
@@ -231,6 +248,7 @@ C:/Users/Ace/Documents/VacationApp/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/Vac
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cctype \
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cerrno \
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/chrono \
+  D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/climits \
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/clocale \
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
   D:/qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/compare \

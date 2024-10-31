@@ -6,6 +6,8 @@
 #include "vacationeditdialog.h"
 
 #include <QSqlError>
+#include <QMenu>
+#include <QAction>
 
 void VacationScene::addRow() {
     // Получаем текущую высоту сцены
@@ -148,4 +150,38 @@ void VacationScene::updateScene()
             }
         }
     }
+}
+
+void VacationScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
+    QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+    if (item && item->type() == QGraphicsTextItem::Type)
+    {
+        item = item->parentItem();
+    }
+    if (item && item->type() == VacationRectItem::Type) {
+        if (auto deleteItem = dynamic_cast<VacationRectItem*>(item))
+        {
+            QMenu *menu = new QMenu();
+            QAction *deleteAction = menu->addAction("Удалить");
+            connect(deleteAction, &QAction::triggered, [this, deleteItem]() {
+                deleteVacationItem(deleteItem);
+            });
+            menu->exec(event->screenPos());
+        }
+    }
+    QGraphicsScene::contextMenuEvent(event); // Передача события в родительский класс
+}
+
+void VacationScene::deleteVacationItem(VacationRectItem* item) {
+    int vacationId = item->vacationId();
+    QSqlQuery query;
+    query.prepare("DELETE FROM dateofvacation WHERE id = :vacation_id");
+    query.bindValue(":vacation_id", vacationId); // Замените vacationId на фактическое значение ID отпуска
+
+    if (query.exec()) {
+        qDebug() << "Блок отпуска удален";
+    } else {
+        qDebug() << "Ошибка удаления отпуска из базы данных:" << query.lastError().text();
+    }
+    removeItem(item);
 }
