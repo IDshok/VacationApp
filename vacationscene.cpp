@@ -197,6 +197,7 @@ void VacationScene::deleteVacationItem(VacationRectItem* item) {
         qDebug() << "Ошибка удаления отпуска из базы данных:" << query.lastError().text();
     }
     removeItem(item);
+    updateScene();
 }
 
 void VacationScene::deleteEmployee(VerticalHeaderItem *item) {
@@ -293,5 +294,6 @@ void VacationScene::deleteEmployee(VerticalHeaderItem *item) {
         }
     }
     setSceneRect(0, 0, sceneRect().width(), sceneRect().height() - m_cellSize.height());
+    updateScene();
     update();
 }
